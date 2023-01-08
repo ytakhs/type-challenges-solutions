@@ -10,33 +10,34 @@
   > View on GitHub: https://tsch.js.org/645
 */
 
-
 /* _____________ Your Code Here _____________ */
 
 type Diff<A, B> = {
-  [P in keyof A | keyof B as P extends keyof A & keyof B ? never : P]: P extends keyof A ? A[P] : P extends keyof B ? B[P] : never;
-}
+  [P in keyof A | keyof B as P extends keyof A & keyof B
+    ? never
+    : P]: P extends keyof A ? A[P] : P extends keyof B ? B[P] : never;
+};
 
 /* _____________ Test Cases _____________ */
-import type { Equal, Expect } from '@type-challenges/utils'
+import type { Equal, Expect } from "@type-challenges/utils";
 
 type Foo = {
-  name: string
-  age: string
-}
+  name: string;
+  age: string;
+};
 type Bar = {
-  name: string
-  age: string
-  gender: number
-}
+  name: string;
+  age: string;
+  gender: number;
+};
 type Coo = {
-  name: string
-  gender: number
-}
+  name: string;
+  gender: number;
+};
 
 type cases = [
   Expect<Equal<Diff<Foo, Bar>, { gender: number }>>,
   Expect<Equal<Diff<Bar, Foo>, { gender: number }>>,
   Expect<Equal<Diff<Foo, Coo>, { age: string; gender: number }>>,
-  Expect<Equal<Diff<Coo, Foo>, { age: string; gender: number }>>,
-]
+  Expect<Equal<Diff<Coo, Foo>, { age: string; gender: number }>>
+];
